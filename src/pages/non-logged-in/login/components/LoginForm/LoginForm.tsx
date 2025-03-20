@@ -11,9 +11,12 @@ interface FormData {
 
 interface LoginFormProps {
     handleLogin: SubmitHandler<FormData>;
+    loading: boolean;
+    loginSuccess: boolean;
+    loginErrorMsg: string;
 }
 
-const LoginForm: FC<LoginFormProps> = ({ handleLogin }) => {
+const LoginForm: FC<LoginFormProps> = ({ handleLogin, loading, loginSuccess, loginErrorMsg }) => {
     const { register, handleSubmit, reset } = useForm<FormData>();
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -64,6 +67,12 @@ const LoginForm: FC<LoginFormProps> = ({ handleLogin }) => {
                 <p>Don't have an account?
                     <Link to="auth/signup"> Sign Up</Link>
                 </p>
+
+                {loading && <p>Loading...</p>}
+                {loginSuccess && <p>Login Successful!</p>}
+                {loginErrorMsg && <p>Error: {loginErrorMsg}</p>}
+
+
             </form >
         </>
     )

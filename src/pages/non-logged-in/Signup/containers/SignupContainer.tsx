@@ -39,7 +39,8 @@ const SignupContainer = () => {
             if (result && result.success) {
                 setSignupSuccess(true);
                 setLoading(false);
-                setSignUpErrorMsg(''); // Clear error message if signup is successful
+                setSignUpErrorMsg('');
+
             }
         } catch (error) {
             // Checking if it's an AxiosError

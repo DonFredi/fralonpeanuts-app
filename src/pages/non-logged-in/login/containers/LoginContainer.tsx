@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useForm } from 'react-hook-form';
 import Login from "../Login";
 import { SubmitHandler } from "react-hook-form";
 import { axiosPrivate } from "@/services/axios";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
 
 
 interface FormData {
@@ -14,6 +18,9 @@ const LoginContainer = () => {
     const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [loginErrorMsg, setLoginErrorMsg] = useState<string>('');
+    const navigate = useNavigate();
+
+
 
     const handleLogin: SubmitHandler<FormData> = async (data) => {
         setLoading(true);
@@ -28,14 +35,16 @@ const LoginContainer = () => {
                     withCredentials: true
                 }
             );
-            console.log(response.data)
-            const result = response.data;
 
+            const result = response.data;
+            console.log(result)
 
             if (result && result.success) {
                 setLoginSuccess(true);
                 setLoading(false);
                 setLoginErrorMsg('');
+                navigate('/');
+
             }
         } catch (error) {
 
@@ -58,7 +67,7 @@ const LoginContainer = () => {
 
 
     }
-    console.log('Login Container rendered', handleLogin);
+
     return (
         <>
             <Login
